@@ -9,6 +9,15 @@ using namespace std;
 
 constexpr int INF = numeric_limits<int>::max();
 
+struct Node {
+    int vertex;
+    int weight;
+    Node(int v = 0, int w = 0) : vertex(v), weight(w) {}
+    bool operator>(const Node & other) const {
+        return weight > other.weight;
+    }
+};
+
 struct Edge {
     int src=0;
     int dst=0;
@@ -27,6 +36,11 @@ struct Edge {
 
 struct Graph : public vector<vector<Edge>> {
     int numVertices=0;
+    vector<vector<Edge>> adjacencyList;
+    vector<int> distance;
+    vector<int> previous;
+    vector<bool> visited;
+    Graph(int n) : numVertices(n), adjacencyList(n), distance(n, INT_MAX), previous(n, -1), visited(n, false) {}
 };
 
 inline istream& operator>>(istream& in, Graph& G) {
