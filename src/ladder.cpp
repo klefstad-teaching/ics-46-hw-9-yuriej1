@@ -1,6 +1,4 @@
 #include "ladder.h"
-#include <algorithm>
-#include <cctype> 
 
 using namespace std;
 
@@ -53,14 +51,14 @@ bool is_adjacent(const string& word1, const string& word2) {
     }
     return diff == 1;
   }
-  string short = (wlen1 < wlen2) ? word1 : word2;
-  string long = (short == word1) ? word2 : word1;
-  int shortLen = short.length();
-  int longLen = long.length();
-  if (longLen - shortLen == 1) {
+  string shorter = (wlen1 < wlen2) ? word1 : word2;
+  string longer = (shorter == word1) ? word2 : word1;
+  int shorterLen = shorter.length();
+  int longerLen = longer.length();
+  if (longerLen - shorterLen == 1) {
     int i = 0, j = 0, diff = 0;
-    while (i < shortLen && j < longLen) {
-      if (short[i] != long[j]) {
+    while (i < shorterLen && j < longerLen) {
+      if (shorter[i] != longer[j]) {
         ++diff;
         if (diff > 1) return false;
         ++j;
@@ -83,7 +81,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
     vector<string> ladder = ladder_queue.front();
     ladder_queue.pop();
     string last_word = ladder.back();
-    for (string & word : word_list) {
+    for (const string & word : word_list) {
       if (is_adjacent(last_word, word) && visited.find(word) == visited.end()) {
         visited.insert(word);
         vector<string> new_ladder = ladder;
@@ -101,14 +99,14 @@ void load_words(set<string> & word_list, const string& file_name) {
   ifstream file(file_name);
   string word;
   while (file >> word) {
-    transform(word.begin(), word.end(), word.begin(), tolower);
+    transform(word.begin(), word.end(), word.begin(), ::tolower);
     word_list.insert(word);
   }
   file.close();
 }
 
 void print_word_ladder(const vector<string>& ladder) {
-  for (string & word : ladder)
+  for (const string & word : ladder)
     cout << word << " ";
 }
 
