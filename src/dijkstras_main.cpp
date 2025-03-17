@@ -10,7 +10,7 @@ int main() {
 
     vector<int> previous(G.numVertices);
     vector<int> distance = dijkstra_shortest_path(G, source, previous);
-    vector<int> path = extract_shortest_path(distance, previous, destination);
+    vector<int> path = extract_shortest_path(distance, G.previous, destination);
 
     int total = distance[destination];
     print_path(path, total);
