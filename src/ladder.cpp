@@ -49,7 +49,7 @@ bool is_adjacent(const string& word1, const string& word2) {
       if (word1[i] != word2[i])
         ++diff;
     }
-    return diff == 1;
+    return diff <= 1;
   }
   string shorter = (wlen1 < wlen2) ? word1 : word2;
   string longer = (shorter == word1) ? word2 : word1;
@@ -107,8 +107,14 @@ void load_words(set<string> & word_list, const string& file_name) {
 }
 
 void print_word_ladder(const vector<string>& ladder) {
-  for (const string & word : ladder)
-    cout << word << " ";
+  if (!ladder.empty()) {
+    cout << "Word ladder found: ";
+    for (const string & word : ladder)
+      cout << word << " ";
+    cout << endl;
+  } else {
+    cout << "No word ladder found." << endl;
+  }
 }
 
 #define my_assert(e) {cout << #e << ((e) ? " passed": " failed") << endl;}

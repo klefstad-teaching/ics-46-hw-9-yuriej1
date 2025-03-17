@@ -6,7 +6,7 @@ int main() {
     Graph G;
     file_to_graph("src/small.txt", G);
     int source = 0;
-    int destination = G.numVertices - 1;
+    int destination = 2;
 
     vector<int> previous(G.numVertices);
     vector<int> distance = dijkstra_shortest_path(G, source, previous);
